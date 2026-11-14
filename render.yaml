@@ -2,13 +2,18 @@ services:
   - type: web
     name: questathon-crm-api
     runtime: node
+    plan: free
     buildCommand: npm install && npm run build -w server
     startCommand: npm start -w server
     healthCheckPath: /health
-    disk: { name: crm-data, mountPath: /var/data, sizeGB: 1 }   # persists the 65s rate-limit clock + cache (paid plan; see README)
     envVars:
-      - { key: DATA_DIR, value: /var/data }
-      - { key: MCP_URL, value: https://questathon.aihackerscollective.com/api/public/mcp }
-      - { key: AQ_TOKEN, sync: false }
-      - { key: ADMIN_KEY, sync: false }
-      - { key: CORS_ORIGINS, sync: false }
+      - key: DATA_DIR
+        value: ./data
+      - key: MCP_URL
+        value: https://questathon.aihackerscollective.com/api/public/mcp
+      - key: AQ_TOKEN
+        sync: false
+      - key: ADMIN_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
